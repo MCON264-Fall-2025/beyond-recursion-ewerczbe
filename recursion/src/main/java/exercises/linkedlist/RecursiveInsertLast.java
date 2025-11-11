@@ -13,7 +13,20 @@ public class RecursiveInsertLast implements InsertLastStrategy {
         // - Base (tail reached): append new node and return head.
         // - Recurse: head.next = insertLast(head.next, value); return head;
         // - OPTIONAL: track recursion depth (e.g., param or field).
-        return head; // placeholder
+        // track how deep the recursion goes
+
+        if (head == null) {
+            return new ListNode(value);
+        }
+
+        if (head.next == null) {
+            head.next = new ListNode(value);
+            return head;
+        }
+
+        head.next = insertLast(head.next, value);
+        return head;
+
     }
 
     // Simple memory helpers for the demo
@@ -23,7 +36,7 @@ public class RecursiveInsertLast implements InsertLastStrategy {
     }
 
     public static void main(String[] args) {
-        int n = args.length > 0 ? Integer.parseInt(args[0]) : 50000;
+        int n = args.length > 0 ? Integer.parseInt(args[0]) : 2000;
         int trials = args.length > 1 ? Integer.parseInt(args[1]) : 3;
 
         // Build an initial list (iteratively to avoid skewing recursion demo)
